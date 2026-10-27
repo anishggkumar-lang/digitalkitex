@@ -1,0 +1,25 @@
+body { 
+    font-family: Arial, sans-serif; 
+    /* Uses a standard relative CSS path to reach your images folder */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.40), rgba(255, 255, 255, 0.40)), url('../images/dashboard-bg.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 30px; 
+    margin: 0;
+}
+
+
+
+/* Optional styling to make your green cards look crisp on the background */
+.table-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.table-card:hover {
+    transform: translateY(-2px);
+}

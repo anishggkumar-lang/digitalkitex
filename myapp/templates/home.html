@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fc8019">
+  <title>DigitalKitex · Restaurant hub</title>
+  <style>
+    :root{--orange:#fc8019;--ink:#202124;--muted:#686b78;--line:#eceef2;--paper:#fff;--canvas:#f7f8fa;--green:#168b53;--red:#d94b45;--amber:#b86908;--shadow:0 12px 36px rgba(34,36,38,.07)}
+    *{box-sizing:border-box}body{margin:0;background:var(--canvas);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}a{color:inherit;text-decoration:none}.topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}.topbar-inner{max-width:1180px;margin:auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:19px;letter-spacing:-.5px}.brand-mark{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;background:#fff0e4;color:var(--orange);font-size:21px}.brand small{display:block;font-size:11px;color:var(--muted);font-weight:500;letter-spacing:.02em}.nav{display:flex;align-items:center;gap:8px}.nav a{padding:10px 14px;border-radius:10px;color:#535661;font-weight:650}.nav a:hover,.nav a.active{background:#fff3e9;color:#dc680a}.nav .admin{border:1px solid var(--line);margin-left:6px}.page{max-width:1180px;margin:0 auto;padding:38px 24px 60px}.eyebrow{color:var(--orange);text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:.14em}.heading-row{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;margin-bottom:26px}.heading-row h1{font-size:clamp(28px,4vw,39px);line-height:1.12;letter-spacing:-1.5px;margin:5px 0 7px}.sub{color:var(--muted);margin:0}.date-pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 15px;color:#565965;font-weight:650;white-space:nowrap}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px}.stat{background:#fff;padding:21px 23px;border:1px solid var(--line);border-radius:16px}.stat-label{font-size:13px;color:var(--muted);font-weight:600}.stat-value{font-size:31px;letter-spacing:-1px;font-weight:800;margin-top:5px}.stat-note{font-size:12px;color:#858894;margin-top:3px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 15px}.section-head h2{font-size:21px;letter-spacing:-.5px;margin:0}.section-head p{color:var(--muted);font-size:13px;margin:2px 0 0}.table-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:15px}.table-box{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;padding:19px;transition:transform .18s,box-shadow .18s}.table-box:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.table-top{display:flex;justify-content:space-between;align-items:center}.table-number{font-size:24px;font-weight:800;letter-spacing:-.7px}.table-icon{width:38px;height:38px;background:#f5f6f8;border-radius:12px;display:grid;place-items:center;font-size:19px}.status{font-size:11px;font-weight:750;padding:5px 9px;border-radius:999px;background:#e8f7ef;color:var(--green)}.occupied .status{background:#fff0ee;color:var(--red)}.reserved .status{background:#fff5e6;color:var(--amber)}.table-box p{margin:13px 0 15px;color:var(--muted);font-size:13px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:750;border:0;cursor:pointer;transition:background .18s,transform .18s}.btn:hover{background:#e96f09;transform:translateY(-1px)}.btn.secondary{background:#fff;color:#363944;border:1px solid var(--line)}.btn.secondary:hover{background:#f7f8fa}.empty{background:#fff;border:1px dashed #d9dce3;border-radius:16px;padding:28px;color:var(--muted);text-align:center}.popular{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px;margin-top:14px}.popular-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.popular-card strong{display:block}.popular-card span{font-size:12px;color:var(--muted)}.footer{padding:22px;text-align:center;color:#91939c;font-size:12px}
+    @media(max-width:650px){.topbar-inner{padding:12px 16px;align-items:flex-start;flex-direction:column}.nav{width:100%;gap:4px}.nav a{padding:9px 10px;font-size:13px}.nav .admin{margin-left:auto}.page{padding:28px 16px 44px}.heading-row{align-items:flex-start;flex-direction:column}.stats{grid-template-columns:1fr;gap:10px}.stat{padding:16px 18px}.stat-value{font-size:27px}}
+  </style>
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner">
+    <a class="brand" href="{% url 'home' %}"><span class="brand-mark">✦</span><span>DigitalKitex<small>RESTAURANT OPERATIONS</small></span></a>
+    <nav class="nav" aria-label="Main navigation"><a class="active" href="{% url 'home' %}">Overview</a><a href="{% url 'kds' %}">Kitchen display</a>{% if user.is_authenticated %}<span class="account-greeting">Hi, {{ user.username }}</span><form class="logout-form" method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="account-nav-button" type="submit">Sign out</button></form>{% else %}<a href="{% url 'login' %}">Sign in</a><a class="account-nav-button" href="{% url 'register' %}">Create account</a>{% endif %}<a class="admin" href="/admin/">Admin ↗</a></nav>
+  </div></header>
+  <main class="page">
+    {% if messages %}<div class="notices" aria-live="polite">{% for message in messages %}<div class="notice {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+    <div class="heading-row"><div><div class="eyebrow">Your restaurant, at a glance</div><h1>Good service starts here.</h1><p class="sub">Manage tables, follow orders, and keep the kitchen moving.</p></div><div class="date-pill">🍽️ &nbsp; DigitalKitex floor</div></div>
+    <section class="stats" aria-label="Today's overview">
+      <article class="stat"><div class="stat-label">Tables on the floor</div><div class="stat-value">{{ tables|length }}</div><div class="stat-note">Ready to welcome your guests</div></article>
+      <article class="stat"><div class="stat-label">Completed orders today</div><div class="stat-value">{{ total_sales_count|default:0 }}</div><div class="stat-note">Orders served today</div></article>
+      <article class="stat"><div class="stat-label">Quick access</div><div class="stat-value" style="font-size:21px;margin:12px 0 11px">Kitchen queue</div><a class="btn secondary" href="{% url 'kds' %}">Open kitchen display →</a></article>
+    </section>
+    <section><div class="section-head"><div><h2>Table overview</h2><p>Choose a table to open its digital menu.</p></div><span class="eyebrow">{{ tables|length }} tables</span></div>
+      <div class="table-grid">
+        {% for table in tables %}<article class="table-box {{ table.status }}"><div class="table-top"><span class="table-number">Table {{ table.number }}</span><span class="table-icon">⌂</span></div><p><span class="status">{{ table.get_status_display }}</span></p><a href="{% url 'menu' table.number %}" class="btn">Open menu <span aria-hidden="true">→</span></a></article>
+        {% empty %}<div class="empty">No tables have been added yet. Add tables in the admin portal to get started.</div>{% endfor %}
+      </div>
+    </section>
+    {% if popular_items %}<section style="margin-top:36px"><div class="section-head"><div><h2>Guest favourites</h2><p>Popular items from completed orders.</p></div></div><div class="popular">{% for item in popular_items %}<article class="popular-card"><strong>{{ item.menu_item__name }}</strong><span>{{ item.total_qty }} ordered</span></article>{% endfor %}</div></section>{% endif %}
+  </main><footer class="footer">DigitalKitex · Made for great service</footer>
+  <script src="{% static 'js/site.js' %}" defer></script>
+</body></html>
+

@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#fc8019">
+  <title>Sign in · DigitalKitex</title>
+  <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+</head>
+<body>
+  <main class="account-shell">
+    <section class="account-art">
+      <a class="brand" href="{% url 'home' %}"><span class="brand-icon">✦</span><span>DigitalKitex<small>FRESHLY MADE, JUST FOR YOU</small></span></a>
+      <div class="art-copy"><span class="art-kicker">A little taste of home</span><h1>Good food is<br>always worth it.</h1><p>Sign in to order Porotta, Dosa, and Idli fresh from our kitchen.</p><div class="food-illustration" aria-hidden="true"><span>🫓</span><span>🥞</span><span>🍚</span></div></div>
+      <div class="art-foot">Made fresh · Served with care</div>
+    </section>
+    <section class="account-panel">
+      <div class="account-card">
+        <a class="mobile-brand" href="{% url 'home' %}">✦ &nbsp; DigitalKitex</a>
+        <div class="form-kicker">WELCOME BACK</div><h2>Sign in to order</h2><p class="form-intro">Your next favourite meal is just a few clicks away.</p>
+        {% if form.errors %}<div class="form-alert" role="alert">That username and password didn’t match. Please try again.</div>{% endif %}
+        <form method="post" class="account-form">
+          {% csrf_token %}<input type="hidden" name="next" value="{{ next }}">
+          <label for="id_username">Username</label><input id="id_username" name="username" type="text" autocomplete="username" required autofocus placeholder="Enter your username" value="{{ form.username.value|default:'' }}">
+          <label for="id_password">Password</label><input id="id_password" name="password" type="password" autocomplete="current-password" required placeholder="Enter your password">
+          <button class="account-submit" type="submit">Sign in <span>→</span></button>
+        </form>
+        <p class="account-switch">New to DigitalKitex? <a href="{% url 'register' %}{% if next %}?next={{ next|urlencode }}{% endif %}">Create an account</a></p>
+        <a class="home-link" href="{% url 'home' %}">← Back to restaurant</a>
+      </div>
+    </section>
+  </main>
+</body></html>
