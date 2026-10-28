@@ -2,15 +2,18 @@ import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-dev-key-change-this-in-production'
-DEBUG = False
-ALLOWED_HOSTS = ['.pythonanywhere.com', '127.0.0.1', 'localhost']
+SECRET_KEY = os.environ.get("SECRET_KEY", "dev-only-change-this")
+DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
+
+PA_DOMAIN = os.environ.get("PA_DOMAIN", "USERNAME.pythonanywhere.com")
+ALLOWED_HOSTS = [PA_DOMAIN, "localhost", "127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = [f"https://{PA_DOMAIN}"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    'django.contrib.sessions',                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
@@ -54,6 +57,9 @@ DATABASES = {
     }
 }
 
-STATIC_URL = 'static/'
+STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [
+    BASE_DIR / "myapp" / "static",
+]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
